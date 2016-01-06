@@ -1,3 +1,4 @@
+# required packages
 library(dplyr)
 library(ggplot2)
 library(reshape2)
@@ -6,10 +7,11 @@ library(tidyr)
 library(lme4)
 library(rstan)
 
-# Read in data and format for modeling -----------------------------------------
+##### Read in data and format for modeling
 all.dat <- read.csv("data.csv")
 names(all.dat) <- tolower(names(all.dat))
 
+# factor and scale
 all.dat$mite <- factor(all.dat$mindintheeyes)
 all.dat$age <- scale(all.dat$age)[,1]
 all.dat$fsiq <- scale(all.dat$fsiq)[,1]
@@ -22,15 +24,39 @@ dat <- all.dat %>%
     ilf_left = scale(lh.ilf_avg_weight)[,1],
     ilf_right = scale(rh.ilf_avg_weight)[,1],
     cst_left = scale(lh.cst_avg_weight)[,1],
-    cst_right = scale(rh.cst_avg_weight)[,1]
+    cst_right = scale(rh.cst_avg_weight)[,1],
+    leftamy = scale(leftamy)[,1],
+    rightamy = scale(rightamy)[,1],
+    unc_right_md = scale(rh.unc_md) [,1],
+    unc_left_md =scale(lh.unc_md) [,1],
+    ilf_left_md =scale(lh.ilf_md) [,1],
+    ilf_right_md = scale(rh.ilf_md) [,1],
+    cst_left_md =scale(lh.cst.md) [,1],
+    cst_right_md = scale(rh.cst.md) [,1],
+    rotation = scale(avg_rotation) [,1],
+    translation = scale(avg_translation) [,1]
   )
 
-fit1 <- polr(mite ~ fsiq + age * unc_left + cst_left + cst_left:age,data = dat)
-fit2 <- polr(mite ~ fsiq + age * unc_right + cst_right + cst_right:age, data = dat)
-fit3 <- polr(mite ~ fsiq + age * ilf_left + cst_left + cst_left:age, data = dat)
-fit4 <- polr(mite ~ fsiq + age * ilf_right + cst_right + cst_right:age, data = dat)
+null <- polr(mite ~ 1, data = dat)
 
-# Checking the converse multilevel models---------------------------------------
+fit1 <- polr(mite ~ fsiq + sex + translation + rotation + age * unc_left + cst_left + leftamy + cst_left:age + leftamy:age, data = dat)
+fit2 <- polr(mite ~ fsiq + sex + translation + rotation + age * unc_right + cst_right + rightamy + cst_right:age + rightamy:age, data = dat)
+fit3 <- polr(mite ~ fsiq + sex + translation + rotation + age * ilf_left + cst_left + leftamy + cst_left:age + leftamy:age, data = dat)
+fit4 <- polr(mite ~ fsiq + sex + translation + rotation + age * ilf_right + cst_right + rightamy + cst_right:age + rightamy:age, data = dat)
+
+# pseudo R^2
+
+1 - logLik(fit1) / logLik(null)
+1 - logLik(fit2) / logLik(null)
+1 - logLik(fit3) / logLik(null)
+1 - logLik(fit4) / logLik(null)
+
+1 - logLik(review) / logLik(null)
+
+1 - logLik(fit5) / logLik(null)
+1 - logLik(fit6) / logLik(null)
+
+##### Checking the continuous multilevel models
 
 mdat <- dat %>%
   dplyr::select(id,
@@ -66,7 +92,16 @@ mlm4 <- mdat %>%
   filter(hemisphere == "right", area != "unc") %>%
   lmer(data = ., value ~ fsiq + age * mite * area + (1|id))
 
-# Plots! -----------------------------------------------------------------------
+
+mlm.fit <- lmer(value ~ hemisphere * area * unclass(mite) * age + (1 | id), data = mdat)
+
+##### Followup ordinal correlation for subsets
+
+with(dat[dat$split.age == "4",], cor.test(mindintheeyes, unc_left, method = "kendall"))
+
+with(dat[dat$split.age == "6",], cor.test(mindintheeyes, unc_left, method = "kendall"))
+
+##### Plots
 
 ggplot(data = mdat, aes(x = value, y = mite, color = split.age)) +
   geom_jitter(position = position_jitter(height = .1, width = 0)) +
@@ -120,10 +155,10 @@ ggsave(filename = "~/Dropbox/DTI shared/Writing/Figures/fig2.png", plot = fig2, 
 
 ggsave(filename = "~/Dropbox/DTI shared/Writing/Figures/fig3.png", plot = fig3, width = 6, height = 4)
 
-# Bayes (whoa to them who enters here) -----------------------------------------
+##### Bayesian analysis
 
-# x <- model.matrix(~ fsiq + age * unc_left + cst_left, dat)
-x <- model.matrix(~ fsiq + sex * age * unc_left + cst_left + cst_left:age + cst_left:sex + cst_left:age:sex, dat)
+# create predictor matrix
+x <- model.matrix(~ fsiq + rotation + translation + sex * age * unc_left + cst_left + cst_left:age + cst_left:sex + cst_left:age:sex + leftamy + leftamy:age + leftamy:sex + leftamy:age:sex + unc_right + unc_right:sex + unc_right:age + unc_right:age:sex, dat)
 
 bdat <- list(
   N = nrow(dat),
@@ -133,6 +168,7 @@ bdat <- list(
   x = x
 )
 
+# Stan code for ordered logistic model
 bmod <- "
 data {
   int<lower=1> N;
