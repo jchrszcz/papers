@@ -1,11 +1,11 @@
 # required packages
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-library(MASS)
-library(tidyr)
-library(lme4)
-library(rstan)
+library("dplyr")
+library("ggplot2")
+library("reshape2")
+library("MASS")
+library("tidyr")
+library("lme4")
+library("rstan")
 
 ##### Read in data and format for modeling
 all.dat <- read.csv("data.csv")
@@ -27,14 +27,14 @@ dat <- all.dat %>%
     cst_right = scale(rh.cst_avg_weight)[,1],
     leftamy = scale(leftamy)[,1],
     rightamy = scale(rightamy)[,1],
-    unc_right_md = scale(rh.unc_md) [,1],
-    unc_left_md =scale(lh.unc_md) [,1],
-    ilf_left_md =scale(lh.ilf_md) [,1],
-    ilf_right_md = scale(rh.ilf_md) [,1],
-    cst_left_md =scale(lh.cst.md) [,1],
-    cst_right_md = scale(rh.cst.md) [,1],
-    rotation = scale(avg_rotation) [,1],
-    translation = scale(avg_translation) [,1]
+    unc_right_md = scale(rh.unc_md)[,1],
+    unc_left_md =scale(lh.unc_md)[,1],
+    ilf_left_md =scale(lh.ilf_md)[,1],
+    ilf_right_md = scale(rh.ilf_md)[,1],
+    cst_left_md =scale(lh.cst.md)[,1],
+    cst_right_md = scale(rh.cst.md)[,1],
+    rotation = scale(avg_rotation)[,1],
+    translation = scale(avg_translation)[,1]
   )
 
 null <- polr(mite ~ 1, data = dat)
@@ -45,61 +45,15 @@ fit3 <- polr(mite ~ fsiq + sex + translation + rotation + age * ilf_left + cst_l
 fit4 <- polr(mite ~ fsiq + sex + translation + rotation + age * ilf_right + cst_right + rightamy + cst_right:age + rightamy:age, data = dat)
 
 # pseudo R^2
+PR2 <- function(mod, null) {
+  1 - logLik(mod) / logLik(null)
+}
 
-1 - logLik(fit1) / logLik(null)
-1 - logLik(fit2) / logLik(null)
-1 - logLik(fit3) / logLik(null)
-1 - logLik(fit4) / logLik(null)
-
-1 - logLik(review) / logLik(null)
-
-1 - logLik(fit5) / logLik(null)
-1 - logLik(fit6) / logLik(null)
-
-##### Checking the continuous multilevel models
-
-mdat <- dat %>%
-  dplyr::select(id,
-                mite,
-                unc_left,
-                age,
-                split.age,
-                fsiq,
-                cst_left,
-                unc_right,
-                cst_right,
-                ilf_left,
-                ilf_right) %>%
-  gather(area, value, -mite, -age, -fsiq, -id, -split.age) %>%
-  separate(area, into = c("area", "hemisphere"), sep = "\\_")
-
-mdat$hemisphere <- factor(mdat$hemisphere)
-mdat$area <- factor(mdat$area)
-
-mlm1 <- mdat %>%
-  filter(hemisphere == "left", area != "ilf") %>%
-  lmer(data = ., value ~ fsiq + age * mite * area + (1|id))
-
-mlm2 <- mdat %>%
-  filter(hemisphere == "right", area != "ilf") %>%
-  lmer(data = ., value ~ fsiq + age * mite * area + (1|id))
-
-mlm3 <- mdat %>%
-  filter(hemisphere == "left", area != "unc") %>%
-  lmer(data = ., value ~ fsiq + age * mite * area + (1|id))
-
-mlm4 <- mdat %>%
-  filter(hemisphere == "right", area != "unc") %>%
-  lmer(data = ., value ~ fsiq + age * mite * area + (1|id))
-
-
-mlm.fit <- lmer(value ~ hemisphere * area * unclass(mite) * age + (1 | id), data = mdat)
+pr2 <- lapply(list(fit1, fit2, fit3, fit4), PR2, null)
 
 ##### Followup ordinal correlation for subsets
 
-with(dat[dat$split.age == "4",], cor.test(mindintheeyes, unc_left, method = "kendall"))
-
-with(dat[dat$split.age == "6",], cor.test(mindintheeyes, unc_left, method = "kendall"))
+followup <- lapply(levels(dat$split.age), function(x) cor.test(~ mindintheeyes + unc_left, method = "kendall", data = dat[dat$split.age == x,]))
 
 ##### Plots
 
@@ -151,10 +105,6 @@ fig3 <- ggplot(fig.dat, aes(x = value, y = new.mite, color = split.age)) +
   scale_color_brewer(type = "qual", palette = 2) +
   guides(color=guide_legend(title="Age"))
 
-ggsave(filename = "~/Dropbox/DTI shared/Writing/Figures/fig2.png", plot = fig2, width = 4, height = 4)
-
-ggsave(filename = "~/Dropbox/DTI shared/Writing/Figures/fig3.png", plot = fig3, width = 6, height = 4)
-
 ##### Bayesian analysis
 
 # create predictor matrix
@@ -170,22 +120,22 @@ bdat <- list(
 
 # Stan code for ordered logistic model
 bmod <- "
-data {
-  int<lower=1> N;
-  int<lower=1> K;
-  int<lower=1> P;
-  int<lower=1,upper=K> y[N];
-  row_vector[P] x[N];
-}
-parameters {
-  vector[P] beta;
-  ordered[K - 1] c;
-}
-model {
-  beta ~ student_t(4.0, 0.0, 5.0/4.0);
-  for (n in 1:N)
-    y[n] ~ ordered_logistic(x[n] * beta, c);
-}
+  data {
+    int<lower=1> N;
+    int<lower=1> K;
+    int<lower=1> P;
+    int<lower=1,upper=K> y[N];
+    row_vector[P] x[N];
+  }
+  parameters {
+    vector[P] beta;
+    ordered[K - 1] c;
+  }
+  model {
+    beta ~ student_t(4.0, 0.0, 5.0/4.0);
+    for (n in 1:N)
+      y[n] ~ ordered_logistic(x[n] * beta, c);
+  }
 "
 
 bfit <- stan(model_code = bmod, data = bdat)

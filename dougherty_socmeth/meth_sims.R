@@ -1,4 +1,16 @@
-lapply(c("MASS", "plyr", "reshape2", "ggplot2", "bestglm", "Hmisc", "gemmR", "parallel"), require, character.only = TRUE, quietly = TRUE)
+# optional: get gemmR
+library("devtools")
+install_github("jchrszcz/gemmR", subdir = "gemmR")
+
+# load required packages
+library("MASS")
+library("plyr")
+library("reshape2")
+library("ggplot2")
+library("bestglm")
+library("Hmisc")
+library("gemmR")
+library("parallel")
 
 # defaults
 
@@ -236,9 +248,9 @@ half.race <- mclapply(1:reps, satMods, sat.list, list(race.select[[1]]), race.mo
 full.coh <- satMods(NA, list(FALSE), list(rep(1, nrow(dat1))), coh.mods, dat1, genModCoh, FALSE, chains = chains, gens = gens)
 half.coh <- mclapply(1:reps, satMods, list(FALSE), list(rep(1, nrow(dat1))), coh.mods, dat1, genModCoh, TRUE, chains = chains, gens = gens, mc.cores = mccount)
 
-# ##### munging
+##### munging
 
-# # table1
+# table1
 
 temp <- melt(full.race)
 temp[-1] <- lapply(temp[-1], factor)
@@ -255,7 +267,7 @@ tab2 <- temp[temp$L5 == "coefs" & temp$L1 == "false",]
 tab2$coef.name <- attr(terms(race.mods[[1]]), "term.labels")
 table2 <- acast(tab2,L4 + L2 ~ coef.name)
 
-# # table3
+# table3
 
 temp <- melt(half.race)
 temp[-1] <- lapply(temp[-1], factor)
@@ -346,8 +358,6 @@ table.se <- acast(all.sterr, L3 + L2 ~ coefs)
 
 
 ### figures
-
-# can R crosshatch?
 
 # figure 1: bivariate scatter for race data with outcome
 
