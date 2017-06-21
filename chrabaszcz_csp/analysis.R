@@ -6,6 +6,7 @@ library(rstan)
 library(data.table)
 library(foreach)
 library(reshape2)
+library(truncnorm)
 options(stringsAsFactors = FALSE)
 theme_set(theme_classic())
 
@@ -200,7 +201,7 @@ save(dat.joe, file = "jeff.RData")
 
 rm(list = ls())
 load("jeff.RData")
-chains <- 5
+chains <- 6
 iters <- 4000
 mc.cores <- 3
 
@@ -226,7 +227,7 @@ for (pick.study in unique(dat.joe$exp)) {
              K = length(unique(jtmp$V1)),
              a = c(1, 1, 10))
 
-  sfit <- stan(data = jtmp1, file = "beta2_hier.stan", chains = chains*3, iter = iters, cores = mc.cores)
+  sfit <- stan(data = jtmp1, file = "beta2_hier.stan", chains = chains, iter = iters, cores = mc.cores)
   save(sfit, mu, sigma, file = paste0("q", pick.study, ".RData"))
   if (pick.study == 4) {
     rm(sfit)
@@ -235,3 +236,53 @@ for (pick.study in unique(dat.joe$exp)) {
   }
   rm(sfit)
 }
+
+### Supplement 2
+
+i <- 40
+j <- 2
+
+mu <- c(-1, 1)
+tau <- c(1, 1)
+sigma <- c(.5, .5)
+gamma <- c(.5, .5)
+phi <- c(1, 1, 10) / 12
+
+m <- matrix(rnorm(j * i, mean = mu, sd = tau), ncol = j, byrow = TRUE)
+s <- matrix(rtruncnorm(j * i, mean = sigma, sd = gamma, a = 0, b = Inf), ncol = 2, byrow = TRUE)
+
+alpha <- beta <- p <- y <- q <- array(NA, dim = c(i, j, 3))
+for (is in 1:i) {
+  for (js in 1:j) {
+    q[is,js,] <- rnorm(3, mean = m[is,js], sd = s[is,js])
+    y[is,js,] <- pnorm((q[is,js,] - m[is,js]) / s[is,js], mean = 0, sd = 1)
+    tmp <- runif(3)
+    y[is,js,] <- ifelse(tmp < phi[1], 0, ifelse(tmp > (1 - phi[2]), 1, y[is,js,]))
+    alpha[is,js,] <- s[is,js] * y[is,js,]
+    beta[is,js,] <- s[is,js] * (1 - y[is,js,])
+    for (ks in 1:3) {
+      if (y[is,js,ks] == 0) {
+        p[is,js,ks] <- 0
+      } else{
+        if (y[is,js,ks] == 1) {
+          p[is,js,ks] <- 1
+        } else{
+          p[is,js,ks] <- rbeta(1, alpha[is,js,ks], beta[is,js,ks])
+        }
+      }
+    }
+  }
+}
+
+dat <- left_join(melt(p) %>% rename(prob = value), melt(q) %>% rename(prompt = value))
+
+jtmp1 <- list(prompt = dat$prompt,
+              prob = dat$prob,
+              condition = unclass(factor(dat$Var2)),
+              idx = unclass(factor(dat$Var1)),
+              N = nrow(dat),
+              J = length(unique(dat$Var2)),
+              K = length(unique(dat$Var1)),
+              a = c(1, 1, 10))
+sfit <- stan(data = jtmp1, file = "beta2_hier.stan", chains = chains, iter = iters, cores = mc.cores)
+save(sfit, mu, tau, sigma, gamma, phi, file = "qSupp2.RData")

@@ -369,7 +369,7 @@ pool.plot <- ggplot(tmp, aes(lambda)) +
   ylab("Frequency") +
   scale_y_continuous(expand = c(0, 0))
 
-### Appendix B
+### Supplement 1
 
 # ML fits
 dat.joe$exp <- factor(dat.joe$exp, labels = 1:8)
@@ -398,6 +398,32 @@ hbm.rhat <- ggplot(tmp, aes(rhat)) +
   facet_wrap(~exp, nrow = 2) +
   theme_classic() +
   labs(x = "Rhat", y = "Count")
+
+### Supplement sim
+
+load("qSupp2.RData")
+
+tmp <- melt(as.array(sfit))
+tmp <- drop.levels(tmp[!grepl("idx|y|alpha|beta|lp", tmp$parameters),])
+levels(tmp$parameters)[6:9] <- c("tau[1]", "tau[2]", "gamma[1]", "gamma[2]")
+
+pars <- data.frame(parameters = levels(tmp$parameters),
+                   value      = c(mu, phi, tau, gamma, sigma))
+
+tmp <- tmp %>%
+  group_by(parameters) %>%
+  summarise(l95 = quantile(value, probs = c(.025)),
+            l80 = quantile(value, probs = c(.1)),
+            h80 = quantile(value, probs = c(.9)),
+            h95 = quantile(value, probs = c(.975)),
+            value = quantile(value, probs = c(.5)))
+
+sim.plot <- ggplot(tmp, aes(parameters, value)) +
+  geom_point() +
+  geom_errorbar(width = 0, aes(ymin = l95, ymax = h95)) +
+  geom_errorbar(width = 0, size = 1.5, aes(ymin = l80, ymax = h80)) +
+  geom_point(data = pars, color = "red") +
+  theme_classic()
 
 # source and save, loaded in paper .Rnw
 save.image(file = "paper.RData")
