@@ -237,7 +237,7 @@ for (pick.study in unique(dat.joe$exp)) {
   rm(sfit)
 }
 
-### Supplement 2
+### Diagnostics
 
 i <- 40
 j <- 2
