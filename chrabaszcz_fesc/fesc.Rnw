@@ -1,0 +1,453 @@
+\documentclass[review]{elsarticle}
+% \usepackage{graphicx}
+% \usepackage{mathtools}
+% \usepackage{float}
+% \usepackage{appendix}
+% \usepackage{authblk}
+% \usepackage{setspace}
+% \usepackage{fullpage}
+% \usepackage{natbib}
+% \usepackage{lineno}
+
+\title{Psychological stress and cortisol responses: Somatic anxiety is negatively related to cortisol change}
+
+\author[jsc]{J.S.~Chrabaszcz\corref{cor1}}
+    \ead{jchrabaszcz@gmail.com}
+\author[pjm]{P.J.~Moore}
+    \ead{pjmoore@gwu.edu}
+\author[ck]{C.K.~Kennedy}
+\ead{}
+\author[me]{M.H.~Eisenberg}
+\ead{}
+\author[wc]{W.D.~Charmak}
+\ead{}
+
+\address[jsc]{Department of Social and Decision Sciences, Carnegie Mellon University}
+\address[pjm]{Department of Psychology, The George Washington University}
+\address[ck]{Adecco at Google}
+\address[me]{Eunice Kennedy Shriver National Institute of Child Health and Human Development, Health Behavior Branch, Division of Intramural Population Health Research, NIH}
+\address[wc]{United States Department of Defense, Kimbrough Ambulatory Care Clinic}
+
+\cortext[cor1]{Corresponding Author}
+
+\begin{document}
+
+\maketitle
+
+<<load-bayes,echo=FALSE>>=
+source('fesc analysis.R')
+@
+
+\begin{abstract}
+
+Our goal is to further elucidate the relationship between psychological and physiological responses to stressors.
+Better understanding of this relationship could provide important clues to limiting the impact of stress and anxiety on physical, emotional and behavioral outcomes.
+In two studies --- an initial study and a subsequent replication --- we examined young adults' self-reported anxiety and salivary cortisol levels  before and after they viewed a painful blood-draw scenario.
+In both studies, we find significant increases in participants' post-scenario anxiety, no reliable change in cortisol levels, and a negative correlation between pre-post anxiety and cortisol change-scores.
+While counter to many previous studies relating social anxiety to cortisol levels, these results are generally consistent with prior research on cortisol and somatic stress.
+These findings suggest that neuroendocrine responses to stress may depend, at least in part, on the psychological nature of that stress.
+
+\end{abstract}
+
+\begin{keyword}
+stress \sep anxiety \sep measurement \sep cortisol
+\end{keyword}
+
+
+\section*{Introduction} % (fold)
+\label{sec:introduction}
+
+Stress can have devastating effects on human health and well-being, resulting in emotional disturbances \cite{almeida1998everyday}, memory deficits \cite{vedhara2000acute}, impaired personal relationships \cite{gruber2003long}, and weakened immune function \cite{o1990stress}.
+These effects can also harm friends, family, and others who interact with individuals under stress \cite{mulia2008stress}.
+In addition, stress has tremendous economic impact, costing an estimated \$42 billion a year in the United States alone \cite{greenberg1999economic}.
+
+Among the most prominent forms of stress is anxiety, which directly affects over 32 million Americans who suffer from one or more anxiety disorders \cite{kessler2005prevalence}.
+As a result, anxiety has been identified as one of the world's most important, ongoing epidemics \cite{jessop2004brief}.
+Given the enormous costs of stress---and anxiety in particular---it is important to develop a fuller understanding of their mechanism(s).
+A central component of this process is the activation of the hypothalamic-pituitary-adrenal (HPA) axis and the release of stress-related hormones, including cortisol.
+Psychological stress can cause the hypothalamus to release corticotropin-releasing hormone (CRH), which stimulates the anterior pituitary gland to secrete adenocorticotrophic hormone (ACTH) into the blood, triggering the release of cortisol from the adrenal glands.
+
+Another method of assessing the impact of stress is to obtain people's self-reports of anxiety, either in general \cite{adkins2008psychometric} or in response to potentially stressful events \cite{leininger2012cortisol}.
+While cortisol and other physiological measures are less subject to response bias, they are not emotion-specific.
+Conversely, though self-reports are more prone to demand characteristics, then can provide qualitative, emotion-specific information about the stress experience, including anxiety.
+Because the cognitive process leading to anxiety can activate a neuroendocrine cascade resulting in cortisol release, cortisol is often utilized as a positive marker for self-reported anxiety \cite{kirschbaum1993trier}.
+This positive anxiety-cortisol link is supported by a substantial body of research \cite{kelly2008sex,boudarene2001study}. 
+However, a number of factors suggest that the strength---and even direction---of anxiety's relationship with cortisol may depend on the type and intensity of the anxiety.
+
+Although studies on the anxiety-cortisol link have included a variety of stressors, the majority of this research has focused on social anxiety \cite{campbell2012acute}.
+Previous research has identified empirical, psychological distinctions between anxiety based on social concerns (e.g., evaluation, embarrassment), and anxiety about somatic threats, including pain, injury and/or death \cite{taylor1999anxiety}.
+There are also indications that this distinction may lead to different cortisol responses \cite{turner2010sex}.
+For example, in a comprehensive review of cortisol responses to stress among children and adolescents, \cite{gunnar2009stressor} found that 12 out of 17 public-speaking (i.e., social-stress) studies showed significant elevations in cortisol levels (with 2 showing decreases in cortisol and 3 finding no significant differences).
+However, in the 18 studies of somatic stress (e.g., heights, scary movies, medical diagnoses, venipuncture) among children and adolescents, 14 studies reported no significant cortisol changes, while 4 found decreases in cortisol, and none reported cortisol increases.
+Whether these results generalize to emerging adulthood---a period of significant stress---is unknown, for no studies to date have examined the link between somatic anxiety and cortisol levels in this population.
+
+Additional factors may also limit the ability of many anxiety-cortisol studies to assess the relationship between anxiety and cortisol responses.
+For example, many studies that measure cortisol levels do not explicitly compare cortisol to self-reported anxiety \cite{steudte2011decreased}.
+Still other studies have assessed this association purely in terms of pre-post mean differences within each measure, rather than examining correlated changes between them \cite{kudielka2009human}.
+However, significant intra-measure change is not required for correlational significance, which can exist in the absence of one or more mean changes.
+Moreover, correlational studies of anxiety and cortisol typically examine this relationship using nominal levels of each measure before or after a stressor.
+To the extent that self-reports and physiological measures are intended as markers for an individual's stress response, it is important to assess the relationship between stress-related \emph{changes} in self-reported anxiety and objective cortisol levels \cite{blood1994spouses,harrell1996situational,walco2005procedural}.
+
+To address these issues, the current research assessed the association between the changes in young adults' self-reported anxiety and salivary cortisol levels before and after being presented with a vivid written description of a physically painful event.
+We also conducted a partial replication with an added video presentation to assess both the reliability of the initial results and the impact of additional stress on the strength of the anxiety-cortisol relationship.
+Using this repeated-measure design, we tested the following hypotheses:
+
+\begin{enumerate}
+  \item That participants' self-reported anxiety will increase significantly after viewing the physically painful event;
+  \item That participants' salivary cortisol will not increase significantly after being presented with the description of the physically painful event; and,
+  \item That pre-post changes in anxiety will be negatively correlated with pre-post changes in salivary cortisol levels.
+\end{enumerate}
+
+% \cite{nachmias1996behavioral}
+
+% section introduction (end)
+
+\begin{center}
+\section*{Study 1} % (fold)
+\label{sec:study1}
+\end{center}
+
+\section*{Method} % (fold)
+\label{sec:method1}
+
+\subsection*{Participants} % (fold)
+\label{sub:participants1}
+
+Thirty-eight undergraduates from a mid-sized urban university participated in partial fulfillment of course requirements.
+Twenty-five (66\%) of the participants were female and an equal number were Caucasian.
+Participants ranged in age from 17 to 30 years old, with an average age of 19.
+
+% subsection participants1 (end)
+
+\subsection*{Procedure} % (fold)
+\label{sub:procedure1}
+
+Participants were recruited through the Psychology Department subject pool.
+After arriving for their scheduled session and giving informed consent, each participant provided an initial salivary cortisol sample and completed an anxiety questionnaire.
+Research sessions for all participants were scheduled between 9am and 12pm to reduce variability associated with normal diurnal cortisol rhythms.
+Participants were then presented with a written scenario depicting a very painful event (described below), and they were asked to respond as if they themselves were in this situation.
+After reading the scenario, participants completed a second anxiety questionnaire and then---approximately 15 minutes after viewing the painful scenario---a second salivary cortisol sample was taken.
+Finally, after providing demographic information (i.e., age, sex, ethnicity), participants were debriefed about the background and purpose of the study and were thanked for their participation.
+
+% subsection procedure1 (end)
+
+\subsection*{Painful event scenario} % (fold)
+\label{sub:paineventscenario}
+
+The painful event scenario presented to participants read as follows:
+
+\begin{quote}
+``You are at a medical clinic awaiting a physical examination required by your health insurance carrier.
+Because of repeated delays, this is the last opportunity for you take the physical before your policy expires.
+This examination includes having your blood drawn to determine your red and white blood cell counts, as well as your iron and serum cholesterol levels.
+The blood is drawn by medical technicians, who usually take it from a vein at the base of the forearm, opposite the elbow.
+Almost all of the technicians associated with this clinic are highly skilled, experienced professionals.
+However, the newest technician has yet to master the technique of drawing blood.
+As a result, he typically misses the vein on the first attempt, requiring him to move the needle around inside the arm, and often necessitating repeated insertions.
+Because there are only ten technicians currently on duty, the odds of having your blood drawn by the new technician is one out of ten, or 10\%.
+Having blood drawn in this manner is extremely painful, including a sharp pain when the needle punctures the skin, and even more intense pain as the needle is angled inside the arm in search of a vein. In addition to being extremely painful, this procedure often results in temporary nerve damage causing, for up to two weeks, a continuous burning sensation, much like having a burning match under your arm.''
+\end{quote}
+
+This scenario has proven to be an effective means of increasing anxiety ratings in previous research \cite{moore2010cognitive,kennedy2011makes}, and pilot participants for the current study exhibited a ceiling effect for anxiety at objective probabilities of 10\% or higher.
+
+% subsection paineventscenario (end)
+
+\subsection*{Measures} % (fold)
+\label{sub:measures}
+
+\emph{Anxiety}. Participant anxiety was assessed using state version of Spielberger's 10-item state-trait anxiety inventory (STAI), which is designed to assess individuals' anxiety-related feelings and sensations \cite{spielberger1983assessment}.
+The STAI has been found to be a valid and reliable index of anxiety \cite{bados2010state,marteau1992development}.
+In completing the STAI before and after viewing the painful event scenario, participants indicated the extent to which they were experiencing each feeling/sensation at that moment (e.g., ``I feel jittery'') using a scale from 1 (not at all) to 4 (very much so), with positively-phrased items reverse coded so that higher values reflected greater anxiety.
+Responses were then combined and averaged to create an overall anxiety score for each participant ($\alpha = $ \Sexpr{round(cb1, digits = 2)}).
+
+\emph{Cortisol}. Participants' cortisol was obtained through saliva samples, a recommended method for cortisol collection \cite{salimetrics2011saliva}.
+While 85-99\% of cortisol in blood is bound to serum proteins, the vast majority of salivary cortisol remains unbound \cite{vining1983hormones}.
+In addition, salivary cortisol levels are unaffected by salivary enzymes or flow rates \cite{vining1987measurement}.
+To minimize contamination and maintain proper oral pH balance, only participants who reported not having eaten, drunk, or brushed their teeth in the previous 60 minutes were included in the study.
+Saliva samples were collected using oral cotton swabs placed under participants' tongues for approximately 90 seconds, after which each swab was inserted into a plastic storage tube, sealed, and stored in a freezer at $-23^{\circ}$ Celsius within 45 minutes of collection.
+Within four weeks after being collected, all saliva samples were shipped to Salimetrics, LLC (State College, PA) for analysis.
+
+Salivary cortisol levels ($\mu$g/dL) were assessed using a competitive enzyme immunoassay.
+Cortisol antibodies from the saliva were incubated in the presence of their antigen.
+Following incubation, available antibody/antigen complexes were added to an antigen-coated well plate where the complexes were conjugated to an enzyme (horseradish peroxidase).
+Well plates were washed (removing any unbound antigen and conjugate) and a substrate (tetramethylbenzidine) was added to react with the horseradish peroxidase for visualization.
+The optical density of the produced color is inversely proportional to the concentration of salivary cortisol.
+
+%subsection measures (end)
+
+\emph{Statistical Analyses}. After preliminary analyses were conducted, a paired t-test was used to compare anxiety scores before and after participants viewed the painful-event scenario (Hypothesis 1). 
+A paired t-test was also used to compare participants' pre- and post-scenario salivary cortisol levels (Hypothesis 2).
+To test Hypothesis 3, change-scores for both anxiety and salivary cortisol were calculated by subtracting pre-scenario levels of each variable from their corresponding post-scenario levels.
+The relationship between these change-scores for anxiety and cortisol was then assessed using a Pearson product-moment correlation.
+
+To control for both undue outlier influence and overestimation of effect sizes, we also analyzed the change score correlations using Bayesian parameter estimation.
+We modeled normalized change in cortisol in the first experiment as a linear function of the normalized change in STAI score with $t$-distributed errors.
+We allowed the degrees-of-freedom parameter of the error distribution to vary, with a prior belief that lower, heavier-tailed values of the parameter more likely \cite{juarez2010model}.
+The Bayesian equivalent of robust regression, this reduces the potential for outlying observations to exert a disproportionate effect on parameter estimates \cite{kruschke2010doing}.
+We also included a double exponential prior on the effect of STAI change centered at zero with a scale parameter of one.
+This is the Bayesian equivalent of a LASSO procedure \cite{tibshirani1996regression}, and is designed to protect against overestimation of effect sizes \cite{gelman2013bayesian}.
+This can be interpreted as an \emph{a priori} assumption that any effect would be close to zero and that a single standard deviation change in anxiety would typically predict less than a single standard deviation change in cortisol.
+These simulations were conducted in R version 3.1.0 \cite{rmanual2014} and Stan version 2.2.0 \cite{stan-software:2014}.
+
+% section method1 (end)
+
+\section*{Results} % (fold)
+\label{sec:results1}
+
+A total of five saliva samples were unsuitable for analysis, two pre-manipulation and three post-manipulation.
+Each unsuitable sample came from a unique participant.
+These participants were excluded from analysis involving cortisol, resulting in a reduced sample size for some comparisons.
+None of the tests that do not include cortisol are substantially changed by omitting these five participants.
+
+\emph{Pre-manipulation}. Participants' anxiety prior to viewing the painful-event scenario averaged \Sexpr{round(tab2[1,3], digits = 2)} ($SD = $ \Sexpr{round(tab2[1,4], digits = 2)}), and did not differ as a function of sex, age, or ethnicity ($p \mbox{s} > .26$).
+Cortisol levels, also unrelated to sex and ethnicity ($p \mbox{s} > .11$), averaged \Sexpr{round(tab2[3,3], digits = 2)} $\mu$g/dL ($SD = $ \Sexpr{round(tab2[3,4], digits = 2)}).
+Cortisol levels were not significantly related to age, ($t($ \Sexpr{cort.age$df.residual}$) = $ \Sexpr{round(coef(summary(cort.age))[2,3], digits = 2)}$, p = $ \Sexpr{round(coef(summary(cort.age))[2,4], digits = 2)}).
+
+\emph{Post-manipulation}. Participants' anxiety after viewing the scenario averaged \Sexpr{round(tab2[2,3], digits = 2)} ($SD =$ \Sexpr{round(tab2[2,4], digits = 2)}), and did not differ across sex, age or ethnicity ($p \mbox{s} > .19$).
+% look at this again
+Average cortisol levels, again unrelated to sex and ethnicity ($p \mbox{s} > .18$), were \Sexpr{round(tab2[4,3], digits = 2)} $\mu$g/dL ($SD = $ \Sexpr{round(tab2[4,4], digits = 2)}).
+As before, cortisol levels after the manipulation were negatively, though not significantly, related to age ($t($ \Sexpr{postcort.age$df.resid}$) =$ \Sexpr{round(coef(summary(postcort.age))[2,3], digits = 2)} $, p = $ \Sexpr{round(coef(summary(postcort.age))[2,4], digits = 2)}$)$.
+
+\emph{Pre-post comparisons}. Participants' anxiety increased significantly after viewing the painful-event scenario ($t($ \Sexpr{round(stai.change.1$parameter, digits = 2)}$) = $ \Sexpr{round(abs(stai.change.1$statistic), digits = 2)}$, p = $ \Sexpr{round(stai.change.1$p.value, digits = 3)}$)$, while their cortisol levels remained unchanged ($t($ \Sexpr{round(cort.change.1$parameter, digits = 2)}$) = $ \Sexpr{round(abs(cort.change.1$statistic), digits = 2)}$, p < 0.001)$.
+As shown in Figure \ref{fig:scatter}, changes in participants' pain-related anxiety were significantly (and inversely) related to changes in their salivary cortisol levels ($r = $ \Sexpr{round(change.1$estimate, digits = 2)}$, t($ \Sexpr{change.1$parameter}$) = $ \Sexpr{round(change.1$statistic, digits = 2)}$, p = $ \Sexpr{round(change.1$p.value, digits = 2)}$)$.
+This was confirmed with Bayesian parameter estimation, despite using a robust $t$ distribution of the errors and shrinking the effect size estimate toward zero, (Table \ref{tab:bayes1}).
+No changes in cortisol or STAI were related to demographic variables ($p \mbox{s} > .16$).
+
+\begin{table}[ht]
+\centering
+  \caption{Posterior estimates for modeled parameters in Study 1 including empirical estimates of the 95\% Bayesian interval around each parameter. Effective N and $\hat{R}$ are convergence diagnostics for the markov chain process.}
+  \begin{tabular}{rrrrrrr}
+  \hline
+  Parameter & Mean & St. Dev. & 2.5\% & 97.5\% & Effective N & $\hat{R}$ \\
+<<bayes-1,echo=FALSE,message=FALSE,warning=FALSE,results='asis'>>=
+library("rstan")
+library("xtable")
+tmp <- cbind(data.frame(Parameter = c("Intercept", "Slope", "Residual SD")), as.data.frame(summary(fit.1, probs = c(.025, .975), pars = c("alpha", "beta", "sigma"))$summary[,c(-2)]))
+print(xtable(tmp, display = c("s", "d", rep("fg", ncol(tmp) - 1)), digits = 2), include.rownames = FALSE, include.colnames = FALSE, format.args = list(big.interval = 3L, big.mark = ","), only.contents = TRUE)
+@
+  \end{tabular}
+  \label{tab:bayes1}
+\end{table}
+
+% section results1 (end)
+
+\section*{Discussion} % (fold)
+\label{sec:discussion1}
+
+Participants' self-reported anxiety increased significantly after viewing the painful-event scenario in the current study.
+This result is consistent with a large body of research showing significant effects of stressful scenarios on stress responses, including pain-related anxiety \cite{chung2005pain,moore2009information}.
+However, participants' salivary cortisol levels remained unchanged after viewing the scenario.
+While counter to research on social anxiety and cortisol, this finding is generally consistent with cortisol results from studies involving somatic-anxiety studies \cite{turner2010sex,noto2005relationship}.
+
+The significant, inverse relationship between pre-post changes in participants' self-reported anxiety and salivary cortisol levels is inconsistent with previous, positive links between general anxiety and cortisol change-scores \cite{alpers2003salivary,sachar1970cortisol}.
+However, the current study appears to be the first correlational test of change-scores for cortisol levels and pain-related anxiety.
+To assess the reliability of these findings, a replication of this study was conducted. 
+Given prior research indicating that the strength of stress-related anxiety-cortisol associations may depend on the intensity of the stressor, a graphic blood-draw video was added the blood-draw scenario to enhance the intensity of the stress manipulation.
+
+% section discussion1 (end)
+
+% section study1 (end)
+
+\begin{center}
+\section*{Study 2} % (fold)
+\label{sec:study2}
+\end{center}
+
+\section*{Method} % (fold)
+\label{sec:method2}
+
+\subsection*{Participants} % (fold)
+\label{sub:participants2}
+
+Forty undergraduates from the the same university participated in partial fulfillment of course requirements.
+Thirty (75\%) of participants were female, and 26 (65\%) were Caucasians.
+Participants ranged in age from 18 to 21 years old, with an average age of 19.
+All participants were new to the study and naive to the manipulation.
+
+% subsection participants2 (end)
+
+\subsection*{Procedure} % (fold)
+\label{sub:procedure2}
+
+The procedure for Study 2 was identical to Study 1, except for the addition of a blood-draw video.
+A video approximately one minute in length depicting a close-up shot of four vials of blood being drawn from a human arm was displayed on a laptop screen for participants to watch prior to reading the vignette used in Study.
+
+% subsection procedure2 (end)
+
+\subsection*{Measures} % (fold)
+\label{sub:measures2}
+
+\emph{Anxiety}. Participants' anxiety was again assessed using Spielberger's 10-item STAI state-trait anxiety inventory \cite{spielberger1983assessment}, with positively-phrased items reverse-coded so that higher values reflected greater anxiety.
+As in Study 1, responses were then combined and averaged to create an overall self-reported anxiety score for each participant ($\alpha =$ \Sexpr{round(cb2, digits = 2)}).
+
+\emph{Cortisol}. Participants' cortisol was obtained through saliva samples, using identical procedures of salivary cortisol collection, storage, and quantification as in Study 1.
+
+% subsection measures2 (end)
+
+\emph{Statistical Analyses}. The same statistical analyses (i.e., paired and two-sample t-tests and pre-post change-score correlation) were used to test the same three hypotheses as in Study 1.
+
+% section method2 (end)
+
+\section*{Results} % (fold)
+\label{sec:results2}
+
+One participant contributed no usable saliva samples.
+This individual was omitted from all analyses.
+
+\emph{Pre-manipulation}. Participants' anxiety prior to viewing the blood-drawing scenario and video averaged \Sexpr{round(tab2[7,3], digits = 2)} ($SD = $ \Sexpr{round(tab2[7,4], digits = 2)}), and did not differ as a function of sex, age or ethnicity ($p \mbox{s} > .29$).
+The average pre-manipulation cortisol level was \Sexpr{round(tab2[9,3], digits = 2)} $\mu$g/dL ($SD =$ \Sexpr{round(tab2[9,4], digits = 2)}).
+While unrelated to age or ethnicity, male participants' cortisol levels ($\mbox{M} = $ \Sexpr{round(cort.sex.desc[3,3], digits = 2)}$, SD = $ \Sexpr{round(cort.sex.desc[3,4], digits = 2)}$)$ were significantly higher than those of female participants ($\mbox{M} = $ \Sexpr{round(cort.sex.desc[1,3], digits = 2)}$, SD = $ \Sexpr{round(cort.sex.desc[1,4], digits = 2)}$, t($ \Sexpr{round(cort.sex.2$parameter, digits = 2)}$) = $ \Sexpr{round(abs(cort.sex.2$statistic), digits = 2)}$, p = $ \Sexpr{round(cort.sex.2$p.value, digits = 2)}$)$.
+
+\emph{Post-manipulation}. As seen in Table \ref{tab:descriptives}, participants' anxiety after the manipulation averaged \Sexpr{round(tab2[8,3], digits = 2)} ($SD = $ \Sexpr{round(tab2[8,4], digits = 2)}$)$, and did not differ across sex, age or ethnicity ($p \mbox{s} > .29$).
+Participants' average post-manipulation cortisol level was \Sexpr{round(tab2[10,3], digits = 2)} $\mu$g/dL ($SD = $ \Sexpr{round(tab2[10,4], digits = 2)}$)$, with males($\mbox{M} = $ \Sexpr{round(cort.sex.desc[4,3], digits = 2)}$, SD = $ \Sexpr{round(cort.sex.desc[4,4], digits = 2)}$)$ exhibiting higher levels than females ($\mbox{M} = $ \Sexpr{round(cort.sex.desc[2,3], digits = 2)}$, SD = $ \Sexpr{round(cort.sex.desc[2,4], digits = 2)}$, t($ \Sexpr{round(cort.sex.2p$parameter, digits = 2)}$) = $ \Sexpr{round(abs(cort.sex.2p$statistic), digits = 2)}$, p = $ \Sexpr{round(cort.sex.2p$p.value, digits = 2)}$)$.
+Post-manipulation cortisol levels were unrelated to any other demographic variables ($p\mbox{s} > .44$).
+
+\emph{Pre-post comparisons}. Participants' anxiety increased significantly after viewing the blood-draw scenario and video ($t($ \Sexpr{round(stai.change.2$parameter, digits = 2)}$) = $ \Sexpr{round(abs(stai.change.2$statistic), digits = 2)}$, p = $ \Sexpr{round(stai.change.2$p.value, digits = 2)}$)$, while salivary cortisol levels remained unchanged ($t($ \Sexpr{round(cort.change.2$parameter, digits = 2)}$) = $ \Sexpr{round(abs(cort.change.2$statistic), digits = 2)}$, p = $ \Sexpr{round(cort.change.2$p.value, digits = 2)}$)$.
+Changes in participants' pain-related anxiety were negatively, though not significantly, related to changes in their salivary cortisol levels ($r = $ \Sexpr{round(change.2$estimate, digits = 2)}$, t($ \Sexpr{round(change.2$parameter, digits = 2)}$) = $ \Sexpr{round(change.2$statistic, digits = 2)}$, p = $ \Sexpr{round(change.2$p.value, digits = 2)}; Figure \ref{fig:scatter}).
+No changes in cortisol or STAI were significantly related to demographic variables ($p \mbox{s} > .16$).
+
+\begin{table}[ht]
+\centering
+\caption{Descriptive statistics for STAI and salivary cortisol measurements split by collection period.}
+\begin{tabular}{rrrrrrrr}
+\hline
+& & & Pre & & Post & & Post - Pre\\ [0.5ex]
+Study 1 & & & Mean (SD) & & Mean (SD) & & Mean (SD)\\
+\hline
+& STAI & & \Sexpr{round(tab2[1,3], digits = 2)} (\Sexpr{round(tab2[1,4], digits = 2)}) & & \Sexpr{round(tab2[2,3], digits = 2)} (\Sexpr{round(tab2[2,4], digits = 2)}) & & \Sexpr{round(tab2[5,3], digits = 2)} (\Sexpr{round(tab2[5,4], digits = 2)})\\
+& Cortisol & & \Sexpr{round(tab2[3,3], digits = 2)} (\Sexpr{round(tab2[3,4], digits = 2)}) & & \Sexpr{round(tab2[4,3], digits = 2)} (\Sexpr{round(tab2[4,4], digits = 2)}) & & \Sexpr{round(tab2[6,3], digits = 2)} (\Sexpr{round(tab2[6,4], digits = 2)})\\
+Study 2 & & & & & & &\\
+\hline
+& STAI & & \Sexpr{round(tab2[7,3], digits = 2)} (\Sexpr{round(tab2[7,4], digits = 2)}) & & \Sexpr{round(tab2[8,3], digits = 2)} (\Sexpr{round(tab2[8,4], digits = 2)}) & & \Sexpr{round(tab2[11,3], digits = 2)} (\Sexpr{round(tab2[11,4], digits = 2)})\\
+& Cortisol & & \Sexpr{round(tab2[9,3], digits = 2)} (\Sexpr{round(tab2[9,4], digits = 2)}) & & \Sexpr{round(tab2[10,3], digits = 2)} (\Sexpr{round(tab2[10,4], digits = 2)}) & & \Sexpr{round(tab2[12,3], digits = 2)} (\Sexpr{round(tab2[12,4], digits = 2)})\\
+\hline
+\end{tabular}
+\label{tab:descriptives}
+\end{table}
+
+\begin{figure}[ht]
+\begin{center}
+\caption{Scatterplots with overlaid regression lines relating change in salivary cortisol and change in STAI score, faceted by study.}
+\label{fig:scatter}
+
+<<fig.scatter,message=FALSE,echo=FALSE,fig.height=4>>=
+library("ggplot2")
+fesc.scatter
+@
+
+\end{center}
+\end{figure}
+
+To assess the combined results of the current studies, manipulation effect sizes were aggregated across studies for each of the dependent variables.
+The combined results for Studies 1 \& 2 are summarized in Table \ref{tab:effectsize}.
+The overall effect sizes (expressed in terms of Pearson's $r$) on participants' anxiety, cortisol levels, and change-score correlations were, respectively, $r = $ \Sexpr{round(a.c$estimate, digits = 2)}$, (p = $ \Sexpr{round(a.c$p.value, digits = 2)}$), r = $ \Sexpr{round(s.c$estimate, digits = 2)}$, (p = $ \Sexpr{round(s.c$p.value, digits = 2)}$), r = $ \Sexpr{round(c.c$estimate, digits = 2)}$, (p = $ \Sexpr{round(c.c$p.value, digits = 2)}$)$.
+
+The results of our Bayesian analysis are concordant with those from null hypothesis significance testing.
+The effect of change in change in anxiety on change in cortisol is reliably negative, as zero is not included in the 95\% high-density interval when aggregating over a prior intended to shrink the effect size estimate and the data from both studies (Table \ref{tab:bayes2}).
+
+\begin{table}[ht]
+\centering
+\caption{Correlations between pre and post STAI and cortisol measurements and change scores for Study 1, Study 2, and combined.}
+\begin{tabular}{rrrrr}
+\hline
+ Study & & Anxiety & Cortisol & Change \\ [0.5ex]
+ \hline
+  1 & & $r = $ \Sexpr{round(a.1$estimate, digits = 2)}$, p = < 0.001$ & $r = $ \Sexpr{round(s.1$estimate, digits = 2)}$, p < 0.001$ & $r = $ \Sexpr{round(c.1$estimate, digits = 2)}$, p = $ \Sexpr{round(c.1$p.value, digits = 3)} \\
+  2 & & $r = $ \Sexpr{round(a.2$estimate, digits = 2)}$, p = $ \Sexpr{round(a.2$p.value, digits = 3)} & $r = $ \Sexpr{round(s.2$estimate, digits = 2)}$, p < 0.001$ & $r = \Sexpr{round(c.2$estimate, digits = 2)}, p = $ \Sexpr{round(c.2$p.value, digits = 3)} \\ [0.5ex]
+ \hline
+  Combined & & $r = $ \Sexpr{round(a.c$estimate, digits = 2)}$, p < 0.001$ & $r = $ \Sexpr{round(s.c$estimate, digits = 2)}$, p < 0.001$ & $r = $ \Sexpr{round(c.c$estimate, digits = 2)}$, p = $ \Sexpr{round(c.c$p.value, digits = 3)} \\
+ [1ex]
+ \hline
+\end{tabular}
+\label{tab:effectsize}
+\end{table}
+
+\begin{table}[ht]
+\centering
+  \caption{Posterior estimates for modeled parameters in Study 2, labels carried over from Study 1. These posteriors use the distribution on beta from Study 1 as prior information.}
+  \begin{tabular}{rrrrrrr}
+  \hline
+  Parameter & Mean & St. Dev. & 2.5\% & 97.5\% & Effective N & $\hat{R}$ \\
+<<bayes-2,echo=FALSE,message=FALSE,warning=FALSE,results='asis'>>=
+tmp <- cbind(data.frame(Parameter = c("Intercept", "Slope", "Residual SD")), as.data.frame(summary(fit.2, probs = c(.025, .975), pars = c("alpha", "beta", "sigma"))$summary[,c(-2)]))
+print(xtable(tmp, display = c("s", "d", rep("fg", ncol(tmp) - 1)), digits = 2), include.rownames = FALSE, include.colnames = FALSE, format.args = list(big.interval = 3L, big.mark = ","), only.contents = TRUE)
+@
+  \end{tabular}
+  \label{tab:bayes2}
+\end{table}
+
+% section results2 (end)
+
+\section*{Discussion} % (fold)
+\label{sec:discussion2}
+
+As in Study 1, Study 2 participants' anxiety ratings increased significantly after the pain-related manipulation.
+Although the pre-post change in anxiety was nominally higher in Study 2—--perhaps due to the additional blood-draw video—--this difference was not statistically significant ($p > .42$).
+Also consistent with Study 1, participants' pre- and post-manipulation cortisol levels were virtually identical, although unlike in Study 1, male participants in Study 2 exhibited higher cortisol levels than females, both before and after the manipulation.
+These differences were not accompanied by gender differences in anxiety and did not interact with the manipulation ($p > .46$), suggesting that the males in our sample had higher salivary cortisol unrelated to their affective states.
+Pre-post changes in participants' anxiety and cortisol levels were negatively correlated, although this relationship was not as strong as in Study 1, a difference that may be attributable to greater cortisol variability in Study 2.
+With the combined results of Studies 1 and 2, post-manipulation anxiety ratings were significantly higher than pre-manipulation levels and these changes in anxiety were significantly and negatively related to changes in cortisol.
+
+% section discussion2 (end)
+
+% section study2 (end)
+
+\section*{General Discussion} % (fold)
+\label{sec:discussiong}
+
+In both current studies, three consistent patterns emerged.
+First, participants' anxiety ratings increased significantly after viewing a physically painful event.
+Supporting the first hypothesis, these results are also consistent with an extensive literature demonstrating significant effects of experimental stress manipulations on individuals' self-reported anxiety \cite{turner2010sex,gunnar2009stressor,harrell1996situational,walco2005procedural}.
+The pre-post increase in anxiety ratings in Study 2, while also significant, was not significantly greater than the anxiety increase in Study 1. This suggests that the blood-draw video did not add significantly to stress associated with the original written scenario; alternatively, it may reflect a ceiling effect for indirect stress manipulations.
+
+Second, pre- and post-manipulation cortisol levels in both studies were virtually identical.
+It may be that cortisol levels are more resistant to increase than self-rated anxiety, suggesting the need for a stronger stress manipulation.
+These results, however, are largely consistent with previous somatic-anxiety studies, many of which involved the direct threat or actual experience of pain \cite{king2010anxiety,ashman2002stress,battaglia1997physiological,quas2004physiological}.
+It is also possible that a stress-related increase in cortisol was countered by the general, downward trend in cortisol levels during the day.
+This too seems unlikely, for while cortisol levels decrease significantly between 9am and 9pm \cite{legler1982diurnal}, cortisol samples were taken from each participant within 20 minutes of each other. While cortisol levels typically rise (and then fall) significantly within an hour of a large meal, only prospective participants who reported not having consumed anything at least 60 minutes before the study were included in this research.
+Of course, null results must be interpreted cautiously, for there are many other potential explanations for such findings, including random cortisol fluxuations, measurement error, and shipping and handling problems (e.g., contamination, decay).
+That said, in the context of pain-related anxiety, although cortisol increases have been reported \cite{alpers2003salivary}, they appear to be the rare exception rather than the rule.
+
+Finally, across the two current studies, pre-post increases in self-reported anxiety were associated with corresponding decreases in salivary cortisol.
+Consistent with the third hypothesis, these results also demonstrate that significant associations between change-scores do not require significant changes in the relevant factors.
+They also suggest that another stress-related mechanism, other than through the HPA axis, may predominate in the case of somatic anxiety; specifically, a pathway that leads to a decrease in cortisol.
+One possible pathway may be through oxytocin, which prevents the release of cortisol by reducing ACTH and is itself released during painful events \cite{tops2007anxiety,neumann1999brain,gibbs1986oxytocin}.
+
+Stimulation of the paraventricular nucleus---the trigger for CRH and eventually cortisol release---also causes the release of oxytocin directly into the posterior pituitary \cite{ross2009characterization}.
+Oxytocin release can in turn cause reciprocal down-regulation of neural activity in the hypothalamus for both the paraventricular and supraoptic nuclei, which could suppress CRH release and subsequent cortisol expression.
+If oxytocin, which is implicated in fear responses \cite{guzman2013fear}, is released proportional to expected pain during these potentially stressful events, it could block cortisol release and cause the observed, negatively correlated changes between self-reported anxiety and salivary cortisol levels without affecting the mean levels of cortisol.
+This would be consistent with non-human studies showing differing patterns of hormone response to qualitatively different stressors \cite{andersen2004different}.
+Future research assessing both cortisol and oxytocin may provide a better understanding of the mechanism translating anxiety into physiological stress.
+Although not novel, correlational analysis of pre-post anxiety and cortisol change scores is relatively rare.
+One notable exception is \cite{sachar1970cortisol}, who found a positive relationship between general anxiety and cortisol changes during and after psychiatric patients' depressive episodes (both anxiety and cortisol levels were lower after patients' recovery).
+The current studies appear to be the only research to directly assess the relationship between simultaneous changes in pain-related anxiety and cortisol levels.
+
+Limitations of this research include the scenario-based nature of the research design, which may have limited the impact of the stress manipulation.
+Participants may also have experienced stress en route to the experiment, erroneously increasing the pre-test measurement of salivary cortisol levels.
+However, while these factors may help explain the unchanged cortisol levels, they would neither explain the observed increases in pain-related anxiety ratings, nor the significant relationship between anxiety and cortisol change-scores.
+In addition, many previous studies have successfully increased participants' anxiety ratings by having them view stressful situation, including those involving pain \cite{kennedy2011makes,moore2010cognitive}.
+Nonetheless, it would be useful for future research to examine the anxiety-cortisol link in response to the threat of actual pain in a controlled fashion (e.g, cold-pressor, mild electric shock).
+Given the current findings, one would expect greater increases in anxiety, and a stronger, negative relationship between changes in anxiety and cortisol,
+The future use of multiple cortisol measurements before and after the stress manipulation may also reduce measurement error, making the link between anxiety and cortisol differences easier to detect.
+Another limitation is the potential bias associated with self-reported anxiety.
+In the current research, participants' anxiety ratings may reflect what participants thought was expected of them, rather than their affective experience.
+Howver, while this may be an alternative explanation for the observed post-manipulation increase in anxiety ratings, it would not explain the negative relationship between anxiety and cortisol change-scores.
+Nonetheless, this issue could be addressed in future research by assessing social desirability, a measure designed to control for the extent to which individuals wish to be seen by others in a positive light.
+
+In sum, the current research includes the first correlational test of somatic anxiety and cortisol changes.
+The results are broadly consistent with previous research, and together they suggest that social and somatic anxiety may elicit different---perhaps even opposing---neuroendocrine responses.
+Reflecting the complexity of the psychological and physiological effects of stress, current and future research on the link between these responses provide a key to understanding the impact of stressful experences on human health and well-being.
+
+% section discussiong (end)
+
+\section*{Declarations}
+
+The authors declare that there is no conflict of interest.
+Protocol for this study were approved by the Institutional Review Board at the George Washington University, protocol \# 050722, dated June 13, 2007.
+
+\pagebreak
+
+\bibliographystyle{apalike}
+\bibliography{fesc}
+
+\end{document}
