@@ -5,6 +5,7 @@ library(tidyr)
 library(reshape2)
 library(rstan)
 library(psy)
+library(rstanarm)
 
 fesc <- read.csv("fescdata.csv")
 fesc2 <- read.csv("fesc2data.csv")
@@ -40,7 +41,7 @@ graph.data <- graph.data[complete.cases(graph.data),]
 
 # figure 1
 
-fesc.scatter <- ggplot(graph.data, aes(staichange, cortchange), color = "black") +
+fescscatter <- ggplot(graph.data, aes(staichange, cortchange), color = "black") +
   geom_point() +
   geom_smooth(method = "lm", color = "black") +
   facet_wrap(~study) +
@@ -137,8 +138,23 @@ fes2_dat <- list(N = nrow(fesc2),
 
 fit.2 <- stan(model_code = fes2_mod, data = fes2_dat)
 
-# Alternate: no prior information
-# fit.2a <- stan(fit = fit.1, data = fes2_dat)
+# multilevel model & vis
+
+fit.3 <- stan_lmer(cortchange ~ staichange + (1 + staichange | study), data = graph.data)
+
+graph.data$Var2 <- seq(nrow(graph.data))
+
+g2 <- posterior_predict(fit.3, draws = 20) %>%
+  reshape2::melt(.) %>%
+  mutate(Var2 = unclass(factor(Var2))) %>%
+  left_join(dplyr::select(graph.data, staichange, study, Var2))
+
+predictscatter <- ggplot(g2, aes(staichange, value)) +
+  geom_smooth(aes(group = Var1), se = FALSE, method = "lm", alpha = .2, color = "gray") +
+  geom_point(data = graph.data, aes(staichange, cortchange)) +
+  facet_wrap(~study) +
+  theme_classic() +
+  labs(y = "Change in cortisol", x = "Change in STAI")
 
 # in-text
 

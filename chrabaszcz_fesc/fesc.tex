@@ -1,4 +1,54 @@
-\documentclass[review]{elsarticle}
+\documentclass[review]{elsarticle}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
 \makeatletter
 \def\ps@pprintTitle{%
  \let\@oddhead\@empty
@@ -36,20 +86,12 @@
 \address[wc]{Kimbrough Ambulatory Care Clinic, United States Department of Defense}
 
 \cortext[cor1]{Corresponding Author}
-
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
 \maketitle
 
-<<load-bayes,include=FALSE>>=
-source('fesc_analysis.R')
-# load("fesc.RData")
-library(xtable)
-formatC2 <- function(x) {
-  y <- formatC(x)
-  sanitize.numbers(y, type = "latex", math.style.exponents = TRUE)
-}
-@
+
 
 \begin{abstract}
 
@@ -161,7 +203,7 @@ This scenario has proven to be an effective means of increasing anxiety ratings 
 \emph{Anxiety}. Participant anxiety was assessed using state version of Spielberger's 10-item state-trait anxiety inventory (STAI), which is designed to assess individuals' anxiety-related feelings and sensations \cite{spielberger1983assessment}.
 The STAI has been found to be a valid and reliable index of anxiety \cite{bados2010state,marteau1992development}.
 In completing the STAI before and after viewing the painful event scenario, participants indicated the extent to which they were experiencing each feeling/sensation at that moment (e.g., ``I feel jittery'') using a scale from 1 (not at all) to 4 (very much so), with positively-phrased items reverse coded so that higher values reflected greater anxiety.
-Responses were then combined and averaged to create an overall anxiety score for each participant ($\alpha = $ \Sexpr{round(cb1, digits = 2)}).
+Responses were then combined and averaged to create an overall anxiety score for each participant ($\alpha = $ 0.87).
 
 \emph{Cortisol}. Participants' cortisol was obtained through saliva samples, a recommended method for cortisol collection \cite{salimetrics2011saliva}.
 While 85-99\% of cortisol in blood is bound to serum proteins, the vast majority of salivary cortisol remains unbound \cite{vining1983hormones}.
@@ -198,16 +240,16 @@ Each unsuitable sample came from a unique participant.
 These participants were excluded from analysis involving cortisol, resulting in a reduced sample size for some comparisons.
 None of the tests that do not include cortisol are substantially changed by omitting these five participants.
 
-\emph{Pre-manipulation}. Participants' anxiety prior to viewing the painful-event scenario averaged \Sexpr{round(tab2[1,3], digits = 2)} (\textit{SD} = \Sexpr{round(tab2[1,4], digits = 2)}), and did not differ as a function of sex, age, or ethnicity ($p \mbox{s} > .26$).
-Cortisol levels, also unrelated to sex and ethnicity ($p \mbox{s} > .11$), averaged \Sexpr{round(tab2[3,3], digits = 2)} $\mu$g/dL (\textit{SD} = \Sexpr{round(tab2[3,4], digits = 2)}).
-Cortisol levels were not significantly related to age, (\textit{t}(\Sexpr{cort.age$df.residual}) = \Sexpr{round(coef(summary(cort.age))[2,3], digits = 2)}, \textit{p} =  \Sexpr{round(coef(summary(cort.age))[2,4], digits = 2)}).
+\emph{Pre-manipulation}. Participants' anxiety prior to viewing the painful-event scenario averaged 0.04 (\textit{SD} = 0.05), and did not differ as a function of sex, age, or ethnicity ($p \mbox{s} > .26$).
+Cortisol levels, also unrelated to sex and ethnicity ($p \mbox{s} > .11$), averaged 2.03 $\mu$g/dL (\textit{SD} = 0.64).
+Cortisol levels were not significantly related to age, (\textit{t}(32) = -1.83, \textit{p} =  0.08).
 
-\emph{Post-manipulation}. Participants' anxiety after viewing the scenario averaged \Sexpr{round(tab2[2,3], digits = 2)} (\textit{SD} = \Sexpr{round(tab2[2,4], digits = 2)}), and did not differ across sex, age or ethnicity ($p \mbox{s} > .19$).
-Average cortisol levels, again unrelated to sex and ethnicity ($p \mbox{s} > .18$), were \Sexpr{round(tab2[4,3], digits = 2)} $\mu$g/dL (\textit{SD} = \Sexpr{round(tab2[4,4], digits = 2)}).
-As before, cortisol levels after the manipulation were negatively, though not significantly, related to age (\textit{t}(\Sexpr{postcort.age$df.resid}) = \Sexpr{round(coef(summary(postcort.age))[2,3], digits = 2)}, \textit{p} = \Sexpr{round(coef(summary(postcort.age))[2,4], digits = 2)}).
+\emph{Post-manipulation}. Participants' anxiety after viewing the scenario averaged 0.43 (\textit{SD} = 0.17), and did not differ across sex, age or ethnicity ($p \mbox{s} > .19$).
+Average cortisol levels, again unrelated to sex and ethnicity ($p \mbox{s} > .18$), were 0.39 $\mu$g/dL (\textit{SD} = 0.17).
+As before, cortisol levels after the manipulation were negatively, though not significantly, related to age (\textit{t}(32) = -1.89, \textit{p} = 0.07).
 
-\emph{Pre-post comparisons}. Participants' anxiety increased significantly after viewing the painful-event scenario (\textit{t}(\Sexpr{round(stai.change.1$parameter, digits = 2)}) = \Sexpr{round(abs(stai.change.1$statistic), digits = 2)}, \textit{p} = \Sexpr{round(stai.change.1$p.value, digits = 3)}), while their cortisol levels remained unchanged (\textit{t}(\Sexpr{round(cort.change.1$parameter, digits = 2)}$) = $ \Sexpr{round(abs(cort.change.1$statistic), digits = 2)}, \textit{p} = \Sexpr{formatC2(cort.change.1$p.value)}).
-As shown in Figure \ref{fig:scatter}, changes in participants' pain-related anxiety were significantly (and inversely) related to changes in their salivary cortisol levels (\textit{r} = \Sexpr{round(change.1$estimate, digits = 2)}, \textit{t}(\Sexpr{change.1$parameter}) = \Sexpr{round(change.1$statistic, digits = 2)}, \textit{p} = \Sexpr{round(change.1$p.value, digits = 2)}).
+\emph{Pre-post comparisons}. Participants' anxiety increased significantly after viewing the painful-event scenario (\textit{t}(33) = 3.44, \textit{p} = 0.002), while their cortisol levels remained unchanged (\textit{t}(33$) = $ 4.17, \textit{p} = 0.0002053).
+As shown in Figure \ref{fig:scatter}, changes in participants' pain-related anxiety were significantly (and inversely) related to changes in their salivary cortisol levels (\textit{r} = -0.39, \textit{t}(32) = -2.41, \textit{p} = 0.02).
 This was confirmed with Bayesian parameter estimation, despite using a robust $t$ distribution of the errors and shrinking the effect size estimate toward zero, (Table \ref{tab:bayes1}).
 No changes in cortisol or STAI were significantly related to demographic variables ($p \mbox{s} > .16$).
 
@@ -217,12 +259,14 @@ No changes in cortisol or STAI were significantly related to demographic variabl
   \begin{tabular}{rrrrrrr}
   \hline
   Parameter & Mean & St. Dev. & 2.5\% & 97.5\% & Effective N & $\hat{R}$ \\
-<<bayes-1,echo=FALSE,message=FALSE,warning=FALSE,results='asis'>>=
-library("rstan")
-library("xtable")
-tmp <- cbind(data.frame(Parameter = c("Intercept", "Slope", "Residual SD")), as.data.frame(summary(fit.1, probs = c(.025, .975), pars = c("alpha", "beta", "sigma"))$summary[,c(-2)]))
-print(xtable(tmp, display = c("s", "d", rep("fg", ncol(tmp) - 1)), digits = 2), include.rownames = FALSE, include.colnames = FALSE, format.args = list(big.interval = 3L, big.mark = ","), only.contents = TRUE)
-@
+% latex table generated in R 3.4.3 by xtable 1.8-2 package
+% Thu Jan 11 15:24:43 2018
+  \hline
+Intercept & 0.05 & 0.01 & 0.031 & 0.071 & 3,474 &   1 \\ 
+  Slope & -0.04 & 0.019 & -0.076 & -0.0034 & 3,634 &   1 \\ 
+  Residual SD & 0.05 & 0.0072 & 0.038 & 0.066 & 3,329 &   1 \\ 
+   \hline
+
   \end{tabular}
   \label{tab:bayes1}
 \end{table}
@@ -266,7 +310,7 @@ A video approximately one minute in length depicting a close-up shot of four via
 \label{sub:measures2}
 
 \emph{Anxiety}. Participants' anxiety was again assessed using Spielberger's 10-item STAI state-trait anxiety inventory \cite{spielberger1983assessment}, with positively-phrased items reverse-coded so that higher values reflected greater anxiety.
-As in Study 1, responses were then combined and averaged to create an overall self-reported anxiety score for each participant ($\alpha =$ \Sexpr{round(cb2, digits = 2)}).
+As in Study 1, responses were then combined and averaged to create an overall self-reported anxiety score for each participant ($\alpha =$ 0.75).
 
 \emph{Cortisol}. Participants' cortisol was obtained through saliva samples, using identical procedures of salivary cortisol collection, storage, and quantification as in Study 1.
 
@@ -278,16 +322,16 @@ As in Study 1, responses were then combined and averaged to create an overall se
 One participant contributed no usable saliva samples.
 This individual was omitted from all analyses.
 
-\emph{Pre-manipulation}. Participants' anxiety prior to viewing the blood-drawing scenario and video averaged \Sexpr{round(tab2[7,3], digits = 2)} (\textit{SD} = \Sexpr{round(tab2[7,4], digits = 2)}), and did not differ as a function of sex, age or ethnicity ($p \mbox{s} > .29$).
-The average pre-manipulation cortisol level was \Sexpr{round(tab2[9,3], digits = 2)} $\mu$g/dL (\textit{SD} =c\Sexpr{round(tab2[9,4], digits = 2)}).
-While unrelated to age or ethnicity, male participants' cortisol levels ($\mbox{M} = $ \Sexpr{round(cort.sex.desc[3,3], digits = 2)}, \textit{SD} = \Sexpr{round(cort.sex.desc[3,4], digits = 2)}) were significantly higher than those of female participants ($\mbox{M} = $ \Sexpr{round(cort.sex.desc[1,3], digits = 2)}, \textit{SD} = \Sexpr{round(cort.sex.desc[1,4], digits = 2)}, \textit{t}(\Sexpr{round(cort.sex.2$parameter, digits = 2)}$) = $ \Sexpr{round(abs(cort.sex.2$statistic), digits = 2)}, \textit{p} = \Sexpr{round(cort.sex.2$p.value, digits = 2)}).
+\emph{Pre-manipulation}. Participants' anxiety prior to viewing the blood-drawing scenario and video averaged -0.01 (\textit{SD} = 0.13), and did not differ as a function of sex, age or ethnicity ($p \mbox{s} > .29$).
+The average pre-manipulation cortisol level was 2.13 $\mu$g/dL (\textit{SD} =c0.62).
+While unrelated to age or ethnicity, male participants' cortisol levels ($\mbox{M} = $ 0.56, \textit{SD} = 0.26) were significantly higher than those of female participants ($\mbox{M} = $ 0.33, \textit{SD} = 0.21, \textit{t}(37$) = $ 2.11, \textit{p} = 0.04).
 
-\emph{Post-manipulation}. As seen in Table \ref{tab:descriptives}, participants' anxiety after the manipulation averaged \Sexpr{round(tab2[8,3], digits = 2)} (\textit{SD} = \Sexpr{round(tab2[8,4], digits = 2)}), and did not differ across sex, age or ethnicity ($p \mbox{s} > .29$).
-Participants' average post-manipulation cortisol level was \Sexpr{round(tab2[10,3], digits = 2)} $\mu$g/dL (\textit{SD} = \Sexpr{round(tab2[10,4], digits = 2)}), with males($\mbox{M} = $ \Sexpr{round(cort.sex.desc[4,3], digits = 2)}, \textit{SD} = \Sexpr{round(cort.sex.desc[4,4], digits = 2)}) exhibiting higher levels than females ($\mbox{M} = $ \Sexpr{round(cort.sex.desc[2,3], digits = 2)}, \textit{SD} = \Sexpr{round(cort.sex.desc[2,4], digits = 2)}, \textit{t}(\Sexpr{round(cort.sex.2p$parameter, digits = 2)}) = \Sexpr{round(abs(cort.sex.2p$statistic), digits = 2)}, \textit{p} = \Sexpr{round(cort.sex.2p$p.value, digits = 2)}).
+\emph{Post-manipulation}. As seen in Table \ref{tab:descriptives}, participants' anxiety after the manipulation averaged 0.39 (\textit{SD} = 0.24), and did not differ across sex, age or ethnicity ($p \mbox{s} > .29$).
+Participants' average post-manipulation cortisol level was 0.4 $\mu$g/dL (\textit{SD} = 0.25), with males($\mbox{M} = $ 0.54, \textit{SD} = 0.23) exhibiting higher levels than females ($\mbox{M} = $ 0.36, \textit{SD} = 0.24, \textit{t}(37) = 2.83, \textit{p} = 0.01).
 Post-manipulation cortisol levels were unrelated to any other demographic variables ($p\mbox{s} > .44$).
 
-\emph{Pre-post comparisons}. Participants' anxiety increased significantly after viewing the blood-draw scenario and video (\textit{t}(\Sexpr{round(stai.change.2$parameter, digits = 2)}) = \Sexpr{round(abs(stai.change.2$statistic), digits = 2)}, \textit{p} = \Sexpr{round(stai.change.2$p.value, digits = 2)}), while salivary cortisol levels remained unchanged (\textit{t}(\Sexpr{round(cort.change.2$parameter, digits = 2)}) = \Sexpr{round(abs(cort.change.2$statistic), digits = 2)}, \textit{p} = \Sexpr{round(cort.change.2$p.value, digits = 2)}).
-Changes in participants' pain-related anxiety were negatively, though not significantly, related to changes in their salivary cortisol levels (\textit{r} = \Sexpr{round(change.2$estimate, digits = 2)}, \textit{t}( \Sexpr{round(change.2$parameter, digits = 2)}) = \Sexpr{round(change.2$statistic, digits = 2)}, \textit{p} = \Sexpr{round(change.2$p.value, digits = 2)}; Figure \ref{fig:scatter}).
+\emph{Pre-post comparisons}. Participants' anxiety increased significantly after viewing the blood-draw scenario and video (\textit{t}(38) = 4.85, \textit{p} = 0), while salivary cortisol levels remained unchanged (\textit{t}(38) = 0.59, \textit{p} = 0.56).
+Changes in participants' pain-related anxiety were negatively, though not significantly, related to changes in their salivary cortisol levels (\textit{r} = -0.31, \textit{t}( 37) = -1.98, \textit{p} = 0.06; Figure \ref{fig:scatter}).
 No changes in cortisol or STAI were significantly related to demographic variables ($p \mbox{s} > .16$).
 
 \begin{table}[ht]
@@ -298,12 +342,12 @@ No changes in cortisol or STAI were significantly related to demographic variabl
 & & & Pre & & Post & & Post - Pre\\ [0.5ex]
 Study 1 & & & Mean (SD) & & Mean (SD) & & Mean (SD)\\
 \hline
-& STAI & & \Sexpr{round(tab2[1,3], digits = 2)} (\Sexpr{round(tab2[1,4], digits = 2)}) & & \Sexpr{round(tab2[2,3], digits = 2)} (\Sexpr{round(tab2[2,4], digits = 2)}) & & \Sexpr{round(tab2[5,3], digits = 2)} (\Sexpr{round(tab2[5,4], digits = 2)})\\
-& Cortisol & & \Sexpr{round(tab2[3,3], digits = 2)} (\Sexpr{round(tab2[3,4], digits = 2)}) & & \Sexpr{round(tab2[4,3], digits = 2)} (\Sexpr{round(tab2[4,4], digits = 2)}) & & \Sexpr{round(tab2[6,3], digits = 2)} (\Sexpr{round(tab2[6,4], digits = 2)})\\
+& STAI & & 0.04 (0.05) & & 0.43 (0.17) & & 1.73 (0.52)\\
+& Cortisol & & 2.03 (0.64) & & 0.39 (0.17) & & 0.29 (0.5)\\
 Study 2 & & & & & & &\\
 \hline
-& STAI & & \Sexpr{round(tab2[7,3], digits = 2)} (\Sexpr{round(tab2[7,4], digits = 2)}) & & \Sexpr{round(tab2[8,3], digits = 2)} (\Sexpr{round(tab2[8,4], digits = 2)}) & & \Sexpr{round(tab2[11,3], digits = 2)} (\Sexpr{round(tab2[11,4], digits = 2)})\\
-& Cortisol & & \Sexpr{round(tab2[9,3], digits = 2)} (\Sexpr{round(tab2[9,4], digits = 2)}) & & \Sexpr{round(tab2[10,3], digits = 2)} (\Sexpr{round(tab2[10,4], digits = 2)}) & & \Sexpr{round(tab2[12,3], digits = 2)} (\Sexpr{round(tab2[12,4], digits = 2)})\\
+& STAI & & -0.01 (0.13) & & 0.39 (0.24) & & 1.68 (0.42)\\
+& Cortisol & & 2.13 (0.62) & & 0.4 (0.25) & & 0.44 (0.57)\\
 \hline
 \end{tabular}
 \label{tab:descriptives}
@@ -314,17 +358,18 @@ Study 2 & & & & & & &\\
 \caption{Scatterplots with overlaid regression lines relating change in salivary cortisol and change in STAI score, faceted by study.}
 \label{fig:scatter}
 
-<<scatter,message=FALSE,echo=FALSE,fig.height=4>>=
-library("ggplot2")
-fescscatter
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/scatter-1} 
+
+\end{knitrout}
 
 \end{center}
 \end{figure}
 
 To assess the combined results of the current studies, manipulation effect sizes were aggregated across studies for each of the dependent variables.
 The combined results for Studies 1 \& 2 are summarized in Table \ref{tab:effectsize}.
-The overall effect sizes (expressed in terms of Pearson's $r$) on participants' anxiety, cortisol levels, and change-score correlations were, respectively, \textit{r} = \Sexpr{round(a.c$estimate, digits = 2)}, (\textit{p} =  \Sexpr{formatC2(a.c$p.value)}), \textit{r} = \Sexpr{round(s.c$estimate, digits = 2)}, (\textit{p} = \Sexpr{formatC2(s.c$p.value)}), \textit{r} = \Sexpr{round(c.c$estimate, digits = 2)}, (\textit{p} = \Sexpr{formatC2(c.c$p.value)}$)$.
+The overall effect sizes (expressed in terms of Pearson's $r$) on participants' anxiety, cortisol levels, and change-score correlations were, respectively, \textit{r} = 0.55, (\textit{p} =  $5.511 \times 10^{-7}$), \textit{r} = 0.88, (\textit{p} = $2.948 \times 10^{-25}$), \textit{r} = -0.34, (\textit{p} = 0.003728$)$.
 
 The results of our Bayesian analysis are concordant with those from null hypothesis significance testing.
 The effect of change in change in anxiety on change in cortisol is reliably negative, as zero is not included in the 95\% high-density interval when aggregating over a prior intended to shrink the effect size estimate and the data from both studies (Table \ref{tab:bayes2}).
@@ -336,10 +381,10 @@ The effect of change in change in anxiety on change in cortisol is reliably nega
 \hline
  Study & & Anxiety & Cortisol & Change \\ [0.5ex]
  \hline
-  1 & & \textit{r} = \Sexpr{round(a.1$estimate, digits = 2)}, \textit{p} = \Sexpr{formatC2(a.1$p.value)} & \textit{r} = \Sexpr{round(s.1$estimate, digits = 2)}, \textit{p} = \Sexpr{formatC2(s.1$p.value)} & \textit{r} = \Sexpr{round(c.1$estimate, digits = 2)}, \textit{p} = \Sexpr{round(c.1$p.value, digits = 3)} \\
-  2 & & \textit{r} = \Sexpr{round(a.2$estimate, digits = 2)}, \textit{p} = \Sexpr{round(a.2$p.value, digits = 3)} & \textit{r} = \Sexpr{round(s.2$estimate, digits = 2)}, \textit{p} = \Sexpr{formatC2(s.2$p.value)} & \textit{r} = \Sexpr{round(c.2$estimate, digits = 2)}, \textit{p} = \Sexpr{round(c.2$p.value, digits = 3)} \\ [0.5ex]
+  1 & & \textit{r} = 0.65, \textit{p} = $2.898 \times 10^{-5}$ & \textit{r} = 0.95, \textit{p} = $4.667 \times 10^{-18}$ & \textit{r} = -0.39, \textit{p} = 0.022 \\
+  2 & & \textit{r} = 0.48, \textit{p} = 0.002 & \textit{r} = 0.86, \textit{p} = $1.315 \times 10^{-12}$ & \textit{r} = -0.31, \textit{p} = 0.055 \\ [0.5ex]
  \hline
-  Combined & & \textit{r} = \Sexpr{round(a.c$estimate, digits = 2)}, \textit{p} = \Sexpr{formatC2(a.c$p.value)} & \textit{r} = \Sexpr{round(s.c$estimate, digits = 2)}, \textit{p} = \Sexpr{formatC2(s.c$p.value)} & \textit{r} = \Sexpr{round(c.c$estimate, digits = 2)}, \textit{p} = \Sexpr{round(c.c$p.value, digits = 3)} \\
+  Combined & & \textit{r} = 0.55, \textit{p} = $5.511 \times 10^{-7}$ & \textit{r} = 0.88, \textit{p} = $2.948 \times 10^{-25}$ & \textit{r} = -0.34, \textit{p} = 0.004 \\
  [1ex]
  \hline
 \end{tabular}
@@ -352,10 +397,14 @@ The effect of change in change in anxiety on change in cortisol is reliably nega
   \begin{tabular}{rrrrrrr}
   \hline
   Parameter & Mean & St. Dev. & 2.5\% & 97.5\% & Effective N & $\hat{R}$ \\
-<<bayes-2,echo=FALSE,message=FALSE,warning=FALSE,results='asis'>>=
-tmp <- cbind(data.frame(Parameter = c("Intercept", "Slope", "Residual SD")), as.data.frame(summary(fit.2, probs = c(.025, .975), pars = c("alpha", "beta", "sigma"))$summary[,c(-2)]))
-print(xtable(tmp, display = c("s", "d", rep("fg", ncol(tmp) - 1)), digits = 2), include.rownames = FALSE, include.colnames = FALSE, format.args = list(big.interval = 3L, big.mark = ","), only.contents = TRUE)
-@
+% latex table generated in R 3.4.3 by xtable 1.8-2 package
+% Thu Jan 11 15:24:44 2018
+  \hline
+Intercept & 0.0068 & 0.02 & -0.033 & 0.046 & 2,254 &   1 \\ 
+  Slope & -0.04 & 0.00034 & -0.041 & -0.04 & 4,000 &   1 \\ 
+  Residual SD & 0.12 & 0.017 & 0.087 & 0.15 & 2,138 &   1 \\ 
+   \hline
+
   \end{tabular}
   \label{tab:bayes2}
 \end{table}
@@ -372,13 +421,44 @@ We could also fit a multilevel model to these data in which the average level of
 % \end{tabular}
 % \end{table}
 
-<<>>=
-print(fit.3, digits = 2)
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{print}\hlstd{(fit.3,} \hlkwc{digits} \hlstd{=} \hlnum{2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## stan_lmer
+##  family:       gaussian [identity]
+##  formula:      cortchange ~ staichange + (1 + staichange | study)
+##  observations: 73
+## ------
+##             Median MAD_SD
+## (Intercept)  0.04   0.02 
+## staichange  -0.06   0.03 
+## sigma        0.10   0.01 
+## 
+## Error terms:
+##  Groups   Name        Std.Dev. Corr
+##  study    (Intercept) 0.0611       
+##           staichange  0.0577   0.08
+##  Residual             0.0967       
+## Num. levels: study 2 
+## 
+## Sample avg. posterior predictive distribution of y:
+##          Median MAD_SD
+## mean_PPD 0.01   0.02  
+## 
+## ------
+## For info on the priors used see help('prior_summary.stanreg').
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
-<<predictplot,message=FALSE,echo=FALSE,fig.height=4>>=
-predictscatter
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/predictplot-1} 
+
+\end{knitrout}
 
 
 \section*{Discussion} % (fold)
